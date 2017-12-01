@@ -12,10 +12,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 
 /**
- *
- * @author ubuntu
+ * Gestiona todos los proyectos que son de clientes, podemos editar los datos del proyecto,
+ * borrar proyectos o añadir proyectos.
+ * 
+ * 
+ * @author Iker Jon
  */
 @Entity
 public class Proyecto implements Serializable {
@@ -31,7 +38,9 @@ public class Proyecto implements Serializable {
     private Float importeFinal;
     private Integer horasEstimadas;
     private Integer horasFinales;
+    @ManyToOne
     private Cliente cliente;
+    @ManyToMany(mappedBy="Proyectos")
     private Collection<Servicio> servicios;
 
     public Integer getId() {
