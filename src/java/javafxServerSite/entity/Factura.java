@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Factura implements Serializable {
     private Date fechaVencimiento;
     private Float importe;
     private Boolean estado;
+    @ManyToOne
     private Cliente cliente;
 
     

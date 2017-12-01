@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -31,6 +32,7 @@ public class Proyecto implements Serializable {
     private Float importeFinal;
     private Integer horasEstimadas;
     private Integer horasFinales;
+    @ManyToOne
     private Cliente cliente;
     private Collection<Servicio> servicios;
 

@@ -9,28 +9,37 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
- *
- * @author ubuntu
+ * 
+ * @author Miguel Axier Lafuente Peñas
  */
 @Entity
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String nif;
+    @NotNull
     private String nombre;
+    @NotNull
     private String direccion;
+    @NotNull
     private BigInteger telefono;
+    @NotNull
     private String email;
     private String web;
+    @OneToOne
+    @MapsId
     private PersonaDeContacto contacto;
+    @OneToMany(mappedBy="cliente")
     private Collection<Factura> facturas;
+    @OneToMany(mappedBy="cliente")
     private Collection<Proyecto> proyectos;
 
     public String getNif() {
