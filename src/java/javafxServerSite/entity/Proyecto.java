@@ -18,8 +18,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 
 /**
- * Gestiona todos los proyectos que son de clientes, podemos editar los datos del proyecto,
- * borrar proyectos o añadir proyectos.
+ * 
  * 
  * 
  * @author Iker Jon
