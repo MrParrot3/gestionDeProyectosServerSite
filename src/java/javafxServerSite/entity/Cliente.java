@@ -41,6 +41,12 @@ public class Cliente implements Serializable {
     private Collection<Factura> facturas;
     @OneToMany(mappedBy="cliente")
     private Collection<Proyecto> proyectos;
+    
+    public Cliente (String nif,String nombre,String direccion,BigInteger telefono,
+                    String email,String web){
+        this.nif=nif;
+        this.nombre=
+    }
 
     public String getNif() {
         return nif;

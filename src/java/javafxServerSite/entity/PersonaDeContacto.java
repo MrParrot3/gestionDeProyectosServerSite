@@ -11,10 +11,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author ubuntu
+ * @author Miguel Axier Lafuente Peñas
  */
 @Entity
 public class PersonaDeContacto implements Serializable {
@@ -23,7 +24,9 @@ public class PersonaDeContacto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotNull
     private String nombre;
+    @NotNull
     private BigInteger telefono;
     private String email;
     
