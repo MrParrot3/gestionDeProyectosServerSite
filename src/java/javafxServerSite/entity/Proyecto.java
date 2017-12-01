@@ -26,8 +26,8 @@ import javax.persistence.OneToMany;
  *  <li>concepto</li>
  *  <li>importeEstimado es el precio que se estima que costara el proyecto</li>
  *  <li>importeFinal es el precio final del proyecto</li>
- *  <li>horasEstimadas son las horas que se estima que se tardara en hacer</li>
- *  <li>horasFinales</li>
+ *  <li>horasEstimadas son las horas que se estima que se tardara en hacer el proyecto</li>
+ *  <li>horasFinales son las </li>
  *  <li>cliente</li>
  *  <li>servicios</li>
  * </ul>
