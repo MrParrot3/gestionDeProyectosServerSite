@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxServerSite.entity;
+package javafxServerSide.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -20,16 +20,16 @@ import javax.persistence.OneToMany;
 /**
  * La clase Proyecto encapsula los datos de cada proyecto: 
  * <ul>
- *  <li>id es el identificad ode cada proyecto</li>
+ *  <li>id is the identifier of the Proyecto.</li>
  *  <li>fechaEstimada es la fecha prevista de finalizacion el proyecto</li> 
- *  <li>fechaFinal es la fecha en la que se acaba el proyecto</li>
- *  <li>concepto</li>
- *  <li>importeEstimado es el precio que se estima que costara el proyecto</li>
- *  <li>importeFinal es el precio final del proyecto</li>
- *  <li>horasEstimadas son las horas que se estima que se tardara en hacer el proyecto</li>
- *  <li>horasFinales son las </li>
- *  <li>cliente</li>
- *  <li>servicios</li>
+ *  <li>fechaFinal es la fecha en la que se acaba el proyecto.</li>
+ *  <li>concepto es la descripcion del proyecto</li>
+ *  <li>importeEstimado es el precio que se estima que costara el proyecto.</li>
+ *  <li>importeFinal es el precio final del proyecto.</li>
+ *  <li>horasEstimadas son las horas que se estima que se tardara en hacer el proyecto.</li>
+ *  <li>horasFinales son las horas que se a tardad oe nahcer el proyecto.</li>
+ *  <li>cliente son todos los datos del cliente</li>
+ *  <li>servicios es la coleccion de servicos y los datos correspondientes de cada servicio que tiene el proyecto </li>
  * </ul>
  * 
  * 
