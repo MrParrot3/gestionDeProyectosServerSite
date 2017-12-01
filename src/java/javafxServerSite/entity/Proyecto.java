@@ -18,10 +18,22 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 
 /**
+ * La clase Proyecto encapsula los datos de cada proyecto: 
+ * <ul>
+ *  <li>id es el identificad ode cada proyecto</li>
+ *  <li>fechaEstimada es la fecha prevista de finalizacion el proyecto</li> 
+ *  <li>fechaFinal es la fecha en la que se acaba el proyecto</li>
+ *  <li>concepto</li>
+ *  <li>importeEstimado es el precio que se estima que costara el proyecto</li>
+ *  <li>importeFinal es el precio final del proyecto</li>
+ *  <li>horasEstimadas son las horas que se estima que se tardara en hacer</li>
+ *  <li>horasFinales</li>
+ *  <li>cliente</li>
+ *  <li>servicios</li>
+ * </ul>
  * 
  * 
- * 
- * @author Iker Jon
+ * @author Iker Jon Mediavilla
  */
 @Entity
 public class Proyecto implements Serializable {
