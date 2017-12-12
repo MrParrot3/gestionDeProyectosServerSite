@@ -11,22 +11,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Past;
 
 /**
- *
- * @author ubuntu
+ * Factura entity encapsulates the data of each invoice.
+ * <ul>
+ *  <li><stron>numFactura</strong> is the identifier of the invoice.</li>
+ * <li><strong>fechaEmision</strong> is the date the invoice is drawn up.</li>
+ * <li><strong>fechaVencimiento</strong> is the expiration date of an invoice.</li>
+ * <li><strong>importe</strong> is the total amount of the invoice.</li>
+ * <li><strong>estado</strong> points out whether the invoice has been paid or not.</li> * 
+ * </ul>
+ * @author Arantzazu Azkona
  */
 @Entity
 public class Factura implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String numFactura;
+    private String numFactura;    
     private Date fechaEmision;
     private Date fechaVencimiento;
     private Float importe;
     private Boolean estado;
+    @ManyToOne
     private Cliente cliente;
 
     
@@ -69,7 +79,10 @@ public class Factura implements Serializable {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-
+    /**
+     * Method used to compare two objects, provides the hash code of an object.
+     * @return the hash code
+     */
 
     @Override
     public int hashCode() {
@@ -77,6 +90,11 @@ public class Factura implements Serializable {
         hash += (numFactura != null ? numFactura.hashCode() : 0);
         return hash;
     }
+    /**
+     * Method used to make equal comparison between two objects.
+     * @param object
+     * @return a boolean variable
+     */
 
     @Override
     public boolean equals(Object object) {

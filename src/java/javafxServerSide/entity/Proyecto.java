@@ -15,27 +15,58 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * La clase Proyecto encapsula los datos de cada proyecto: 
+ * The Project class encapsulates the data of each project: 
  * <ul>
- *  <li>id is the identifier of the Proyecto.</li>
- *  <li>fechaEstimada es la fecha prevista de finalizacion el proyecto</li> 
- *  <li>fechaFinal es la fecha en la que se acaba el proyecto.</li>
- *  <li>concepto es la descripcion del proyecto</li>
- *  <li>importeEstimado es el precio que se estima que costara el proyecto.</li>
- *  <li>importeFinal es el precio final del proyecto.</li>
- *  <li>horasEstimadas son las horas que se estima que se tardara en hacer el proyecto.</li>
- *  <li>horasFinales son las horas que se a tardad oe nahcer el proyecto.</li>
- *  <li>cliente son todos los datos del cliente</li>
- *  <li>servicios es la coleccion de servicos y los datos correspondientes de cada servicio que tiene el proyecto </li>
+ *  <li><stron>id</strong> is the identifier of the Proyecto:</li>
+ *  <li><stron>fechaEstimada</strong> is the expected date of completion of the project.</li> 
+ *  <li><stron>fechaFinal</strong> is the date when the project ends.</li>
+ *  <li><stron>concepto</strong> is the description of the project.</li>
+ *  <li><stron>importeEstimado</strong> is the price estimated to cost the project.</li>
+ *  <li><stron>importeFinal</strong> is the final price of the project.</li>
+ *  <li><stron>horasEstimadas</strong> are the estimated hours it takes to do the project.</li>
+ *  <li><stron>horasFinales</strong> are the hours that have taken to make the project.</li>
+ *  <li><stron>cliente</strong> are all cliente data.</li>
+ *  <li><stron>servicios</strong> is the collection of servicios and the corresponding data of each servicio</li>
  * </ul>
  * 
  * 
  * @author Iker Jon Mediavilla
  */
 @Entity
+@Table(name="Proyecto", schema="registerdb")
+    @NamedQueries({
+        @NamedQuery(
+                name="findAllProyectos",
+                query="select p from Proyecto p order by p.id"
+        ),
+        @NamedQuery(
+                name="findProyectosSinFinalizar",
+                query="select p from Proyecto p where p.fechaFinal is null or p.importeFinal=0 or p.horasFinales=0 order by p.id"
+        ),  
+        @NamedQuery(
+                name="findProyectosFinalizados",
+                query="select p from Proyecto p where p.fechaFinal is not null or p.importeFinal!=0 or p.horasFinales!=0 order by p.id"
+        ),
+        @NamedQuery(
+                name="findProyectosCIF",
+                query="select p from Proyecto p where p.cliente like :cif order by p.id"
+        ),
+        @NamedQuery(
+                name="findProyectosSinFinalizarCIF",
+                query="select p from Proyecto p where p.fechaFinal is null or p.importeFinal=0 or p.horasFinales=0 and p.cliente like :cif order by p.id"
+        ),
+        @NamedQuery(
+                name="findProyectosFinalizadosCIF",
+                query="select p from Proyecto p where p.fechaFinal is not null or p.importeFinal!=0 or p.horasFinales!=0 and p.cliente like :cif order by p.id"
+        )
+    })
+
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,7 +84,7 @@ public class Proyecto implements Serializable {
     private Cliente cliente;
     @ManyToMany(mappedBy="Proyectos")
     private Collection<Servicio> servicios;
-
+    
     public Integer getId() {
         return id;
     }
@@ -134,17 +165,18 @@ public class Proyecto implements Serializable {
         this.servicios = servicios;
     }
 
-   
-    
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
+    
+    /**
+     * Method used to make equal comparison between two ids.
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
