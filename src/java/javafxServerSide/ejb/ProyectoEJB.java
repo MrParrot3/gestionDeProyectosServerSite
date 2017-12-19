@@ -7,6 +7,7 @@ package javafxServerSide.ejb;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafxServerSide.entity.Proyecto;
 import javafxServerSide.exception.ConsultaProyectoException;
@@ -31,62 +32,73 @@ public class ProyectoEJB implements ProyectoEJBLocal {
     @PersistenceContext
     private EntityManager em;
     
+    public Proyecto findProyectoById(Integer id) throws ConsultaProyectoException{
+         logger.info("ProyectoEJB: Finding proyecto by id.");
+        return em.find(Proyecto.class, id);
+    } 
+    
     @Override
     public void newProyecto(Proyecto proyecto) throws NewProyectoException{
-        logger.info("ProyectoEJB: new Proyecto.");
+        logger.info("ProyectoEJB: New Proyecto.");
         //validates data before inserting
       
-        if(proyecto.getId()==null || proyecto.getCliente()==null || proyecto.getConcepto() == null || proyecto.getHorasEstimadas() == null ||
+        /*if(proyecto.getId()==null || proyecto.getCliente()==null || proyecto.getConcepto() == null || proyecto.getHorasEstimadas() == null ||
             proyecto.getImporteEstimado() == null || proyecto.getFechaEstimada() == null){
             logger.severe("ProyectoEJB: ConsultaProyectoException creating Exception ");
             throw new NewProyectoException();
        
-        }
+        }*/
          try{
-             em.persist(proyecto);
-             
+             em.persist(proyecto); 
         }catch(Exception e){
-            logger.severe("ProyectoEJB: ConsultaProyectoException creating Exception "+e.getMessage());
+            logger.log(Level.SEVERE, "ProyectoEJB: ConsultaProyectoException creating Exception.", e.getMessage());
             throw new NewProyectoException();
         }
     }
     
     public Collection<Proyecto> getAllProyectos() throws ConsultaProyectoException{
         try{
-            logger.info("ProyectoEJB: getting all Proyectos.");
+            logger.info("ProyectoEJB: Getting all proyectos.");
             Collection p = em.createNamedQuery("findAllProyectos").getResultList(); 
             return p;
         }catch(Exception e){
+             logger.log(Level.SEVERE, "ProyectoEJB: Exception getting all proyectos.{0}", e.getMessage());
             throw new ConsultaProyectoException(e.getMessage());
         }
+
     }
     
     public void deleteProyecto(Proyecto proyecto) throws DeleteProyectoException{
         try{
-            logger.info("ProyectoEJB: deleting Proyecto.");
-            //validates data before deleting            
+            logger.info("ProyectoEJB: Deleting proyecto.");
+            //validates data before deleting 
+            proyecto=em.merge(proyecto);
             em.remove(proyecto);
         }catch(Exception e){
-           throw new DeleteProyectoException(e.getMessage());
+            logger.log(Level.SEVERE, "ProyectoEJB: Exception deleting proyecto.{0}", e.getMessage());
+            throw new DeleteProyectoException(e.getMessage());
         }
+        logger.info("ProyectoEJB: Proyecto deleted.");
     }
     
     public void editProyecto(Proyecto proyecto) throws EditProyectoException{
         try{
-            logger.info("ProyectoEJB: editing Proyecto.");
+            logger.info("ProyectoEJB: Editing proyecto.");
             if(!em.contains(proyecto)){
                 proyecto = em.merge(proyecto);
             }
         }catch(Exception e){
+            logger.log(Level.SEVERE, "ProyectoEJB: Exception editing proyecto.{0}", e.getMessage());
             throw  new EditProyectoException(e.getMessage());
         }
+        logger.info("ProyectoEJB: Proyecto edited.");
     }
     
-    public Collection<Proyecto> getProyectosFiltrados(int opc, String cif) throws ConsultaProyectoException{
+    public Collection<Proyecto> getProyectosFiltrados(int tipo, String cif) throws ConsultaProyectoException{
         try{
             Collection p;
-            logger.info("ProyectoEJB: filtering Proyectos.");
-            switch (opc){
+            logger.info("ProyectoEJB: Filtering Proyectos.");
+            switch (tipo){
                 case 0:
                     p = em.createNamedQuery("findProyectosSinFinalizar").getResultList();
                     break;
@@ -110,6 +122,7 @@ public class ProyectoEJB implements ProyectoEJBLocal {
                 case 5:
                     p = em.createNamedQuery("findProyectosFinalizadosCIF").setParameter("cif", cif).getResultList();
                     break;
+                    
                 default:
                     p = em.createNamedQuery("findProyectosSinFinalizar").getResultList();
                     break;

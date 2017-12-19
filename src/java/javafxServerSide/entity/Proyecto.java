@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The Project class encapsulates the data of each project: 
@@ -39,34 +41,35 @@ import javax.persistence.Table;
  * @author Iker Jon Mediavilla
  */
 @Entity
-@Table(name="Proyecto", schema="registerdb")
+@Table(name="proyecto", schema="dindb")
     @NamedQueries({
         @NamedQuery(
-                name="findAllProyectos",
-                query="select p from Proyecto p order by p.id"
+            name="findAllProyectos",
+            query="select p from Proyecto p order by p.id"
         ),
         @NamedQuery(
-                name="findProyectosSinFinalizar",
-                query="select p from Proyecto p where p.fechaFinal is null or p.importeFinal=0 or p.horasFinales=0 order by p.id"
+            name="findProyectosSinFinalizar",
+            query="select p from Proyecto p where p.fechaFinal is null or p.importeFinal=0 or p.horasFinales=0 order by p.id"
         ),  
         @NamedQuery(
-                name="findProyectosFinalizados",
-                query="select p from Proyecto p where p.fechaFinal is not null or p.importeFinal!=0 or p.horasFinales!=0 order by p.id"
+            name="findProyectosFinalizados",
+            query="select p from Proyecto p where p.fechaFinal is not null or p.importeFinal!=0 or p.horasFinales!=0 order by p.id"
         ),
         @NamedQuery(
-                name="findProyectosCIF",
-                query="select p from Proyecto p where p.cliente like :cif order by p.id"
+            name="findProyectosCIF",
+            query="select p from Proyecto p where p.cliente like :cif order by p.id"
         ),
         @NamedQuery(
-                name="findProyectosSinFinalizarCIF",
-                query="select p from Proyecto p where p.fechaFinal is null or p.importeFinal=0 or p.horasFinales=0 and p.cliente like :cif order by p.id"
+            name="findProyectosSinFinalizarCIF",
+            query="select p from Proyecto p where p.fechaFinal is null or p.importeFinal=0 or p.horasFinales=0 and p.cliente like :cif order by p.id"
         ),
         @NamedQuery(
-                name="findProyectosFinalizadosCIF",
-                query="select p from Proyecto p where p.fechaFinal is not null or p.importeFinal!=0 or p.horasFinales!=0 and p.cliente like :cif order by p.id"
+            name="findProyectosFinalizadosCIF",
+            query="select p from Proyecto p where p.fechaFinal is not null or p.importeFinal!=0 or p.horasFinales!=0 and p.cliente like :cif order by p.id"
         )
     })
 
+@XmlRootElement
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -157,6 +160,7 @@ public class Proyecto implements Serializable {
         this.cliente = cliente;
     }
 
+    @XmlTransient
     public Collection<Servicio> getServicios() {
         return servicios;
     }

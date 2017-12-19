@@ -20,6 +20,8 @@ import javax.ejb.Local;
 @Local
 public interface ProyectoEJBLocal {
      
+    public Proyecto findProyectoById(Integer id) throws ConsultaProyectoException;
+    
     public Collection<Proyecto> getAllProyectos() throws ConsultaProyectoException;
      
     public void newProyecto(Proyecto proyecto) throws NewProyectoException;
